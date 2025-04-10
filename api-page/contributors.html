@@ -4,51 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contributors | Nazir API</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <p>Loading Contributors...</p>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Contributors</div>
+        </div>
     </div>
 
-    <header class="header">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
-            <nav class="navbar">
-                <a href="/" class="logo">
-                    <span>Nazir</span>API
-                </a>
-                <a href="/" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </a>
-            </nav>
+            <a href="/" class="logo">
+                <span class="logo-icon">API</span>
+                <span class="logo-text">Nazir</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#contributors" class="nav-link">Contributors</a>
+                <a href="https://wa.me/6285822146627" class="nav-button">Contact</a>
+            </div>
+            <button class="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <main class="contributors-page">
-        <section class="contributors-hero">
-            <div class="container">
-                <h1>Our Amazing Contributors</h1>
-                <p>Meet the talented individuals who help make Nazir API better</p>
+    <!-- Contributors Section -->
+    <section id="contributors" class="contributors-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Our Contributors</h1>
+                <p class="section-subtitle">The talented people who help build and maintain Nazir API</p>
             </div>
-        </section>
-
-        <section class="contributors-list">
-            <div class="container">
-                <div id="contributors-container" class="contributors-grid">
-                    <!-- Contributors will be loaded dynamically -->
-                </div>
+            <div class="contributors-grid" id="contributorsContainer">
+                <!-- Contributors will be loaded here -->
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2023 Nazir API. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span class="logo-icon">API</span>
+                        <span class="logo-text">Nazir</span>
+                    </a>
+                    <p class="footer-text">Modern API solutions for developers and businesses.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4 class="link-title">Resources</h4>
+                        <a href="#" class="footer-link">Documentation</a>
+                        <a href="#" class="footer-link">API Reference</a>
+                        <a href="#" class="footer-link">Status</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2023 Nazir API Services. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

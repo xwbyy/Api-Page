@@ -1,349 +1,334 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Loading screen
-    const loadingScreen = document.getElementById('loading-screen');
+    // Show loading screen
+    const loadingScreen = document.getElementById('loadingScreen');
+    document.body.classList.add('no-scroll');
     
     try {
         // Load settings
         const settings = await fetch('/src/settings.json').then(res => res.json());
         
-        // Set page title
-        document.title = settings.name || 'Nazir API';
-        
-        // Load API data
-        await loadAPIData(settings);
+        // Set page title and header
+        document.title = settings.name || 'Nazir API Services';
         
         // Initialize mobile menu
-        initMobileMenu();
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navLinks = document.querySelector('.nav-links');
         
-        // Initialize modal
-        initModal();
+        if (mobileMenuButton && navLinks) {
+            mobileMenuButton.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
         
-    } catch (error) {
-        console.error('Error loading data:', error);
-    } finally {
-        // Hide loading screen
+        // Initialize API content
+        if (document.getElementById('apiContent')) {
+            await initializeApiContent(settings);
+        }
+        
+        // Initialize contributors
+        if (document.getElementById('contributorsContainer')) {
+            await initializeContributors(settings);
+        }
+        
+        // Hide loading screen after 1.5 seconds
         setTimeout(() => {
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }, 1000);
+            loadingScreen.classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }, 1500);
+    } catch (error) {
+        console.error('Error initializing application:', error);
+        loadingScreen.classList.add('hidden');
+        document.body.classList.remove('no-scroll');
     }
 });
 
-async function loadAPIData(settings) {
-    // Load API categories and items
-    const apiCategoriesContainer = document.getElementById('api-categories');
-    const docsNav = document.getElementById('docs-nav');
-    const docsContent = document.getElementById('docs-content');
+// Initialize API content
+async function initializeApiContent(settings) {
+    const apiContent = document.getElementById('apiContent');
+    const searchInput = document.getElementById('searchInput');
     
     // Clear existing content
-    apiCategoriesContainer.innerHTML = '';
-    docsNav.innerHTML = '';
-    docsContent.innerHTML = '';
+    apiContent.innerHTML = '';
     
-    // Add categories to features section
+    // Group endpoints by category
+    const categories = {};
     settings.categories.forEach(category => {
-        // Sort items alphabetically
-        const sortedItems = [...category.items].sort((a, b) => a.name.localeCompare(b.name));
-        
-        // Create category element
-        const categoryElement = document.createElement('div');
-        categoryElement.className = 'api-category';
-        categoryElement.innerHTML = `
-            <div class="category-header">
-                <h3>${category.name}</h3>
-            </div>
-            <div class="api-items" id="${category.name.toLowerCase().replace(/\s+/g, '-')}-items">
-                ${sortedItems.map(item => `
-                    <div class="api-item" data-name="${item.name.toLowerCase()}" data-desc="${item.desc.toLowerCase()}">
-                        <h3>${item.name}</h3>
-                        <p>${item.desc}</p>
-                        <button class="btn primary-btn open-api-modal" 
-                                data-path="${item.path}" 
-                                data-name="${item.name}" 
-                                data-desc="${item.desc}">
-                            Try it
-                        </button>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        
-        apiCategoriesContainer.appendChild(categoryElement);
-        
-        // Add to documentation navigation
-        const navItem = document.createElement('div');
-        navItem.className = 'docs-nav-item';
-        navItem.innerHTML = `
-            <h4>${category.name}</h4>
-            <ul>
-                ${sortedItems.map(item => `
-                    <li><a href="#${item.name.toLowerCase().replace(/\s+/g, '-')}">${item.name}</a></li>
-                `).join('')}
-            </ul>
-        `;
-        docsNav.appendChild(navItem);
-        
-        // Add to documentation content
-        const contentSection = document.createElement('section');
-        contentSection.id = `${category.name.toLowerCase().replace(/\s+/g, '-')}-docs`;
-        contentSection.innerHTML = `
-            <h2>${category.name}</h2>
-            ${sortedItems.map(item => `
-                <article id="${item.name.toLowerCase().replace(/\s+/g, '-')}">
-                    <h3>${item.name}</h3>
-                    <p>${item.desc}</p>
-                    <div class="endpoint-info">
-                        <div class="endpoint-method">GET</div>
-                        <code>${window.location.origin}${item.path}</code>
-                    </div>
-                    ${item.innerDesc ? `<div class="endpoint-desc">${item.innerDesc.replace(/\n/g, '<br>')}</div>` : ''}
-                    <button class="btn primary-btn open-api-modal" 
-                            data-path="${item.path}" 
-                            data-name="${item.name}" 
-                            data-desc="${item.desc}">
-                        Try this endpoint
-                    </button>
-                </article>
-            `).join('')}
-        `;
-        docsContent.appendChild(contentSection);
+        categories[category.name] = category.items;
     });
     
-    // Initialize search functionality
-    initSearch();
-}
-
-function initSearch() {
-    const searchInput = document.getElementById('api-search');
+    // Create API cards for each category
+    for (const [categoryName, endpoints] of Object.entries(categories)) {
+        const categoryHeader = document.createElement('h3');
+        categoryHeader.className = 'category-title';
+        categoryHeader.textContent = categoryName;
+        apiContent.appendChild(categoryHeader);
+        
+        const categoryContainer = document.createElement('div');
+        categoryContainer.className = 'category-container';
+        
+        endpoints.forEach(endpoint => {
+            const apiCard = document.createElement('div');
+            apiCard.className = 'api-card';
+            apiCard.dataset.name = endpoint.name.toLowerCase();
+            apiCard.dataset.desc = endpoint.desc.toLowerCase();
+            
+            apiCard.innerHTML = `
+                <div class="api-card-header">
+                    <h3 class="api-card-title">${endpoint.name}</h3>
+                    <span class="api-card-method">GET</span>
+                </div>
+                <p class="api-card-description">${endpoint.desc}</p>
+                <div class="api-card-footer">
+                    <button class="api-card-button" 
+                            data-path="${endpoint.path}" 
+                            data-name="${endpoint.name}" 
+                            data-desc="${endpoint.desc}">
+                        Try it out
+                    </button>
+                </div>
+            `;
+            
+            categoryContainer.appendChild(apiCard);
+        });
+        
+        apiContent.appendChild(categoryContainer);
+    }
     
+    // Initialize search functionality
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
-        const apiItems = document.querySelectorAll('.api-item');
+        const apiCards = document.querySelectorAll('.api-card');
         
-        apiItems.forEach(item => {
-            const name = item.getAttribute('data-name');
-            const desc = item.getAttribute('data-desc');
+        apiCards.forEach(card => {
+            const name = card.dataset.name;
+            const desc = card.dataset.desc;
             
             if (name.includes(searchTerm) || desc.includes(searchTerm)) {
-                item.style.display = 'block';
+                card.style.display = 'block';
             } else {
-                item.style.display = 'none';
+                card.style.display = 'none';
             }
         });
         
         // Hide empty categories
-        document.querySelectorAll('.api-category').forEach(category => {
-            const visibleItems = category.querySelectorAll('.api-item:not([style*="none"])');
-            if (visibleItems.length === 0) {
-                category.style.display = 'none';
+        document.querySelectorAll('.category-container').forEach(container => {
+            const visibleCards = container.querySelectorAll('.api-card[style="display: block;"]');
+            const categoryTitle = container.previousElementSibling;
+            
+            if (visibleCards.length === 0) {
+                categoryTitle.style.display = 'none';
+                container.style.display = 'none';
             } else {
-                category.style.display = 'block';
+                categoryTitle.style.display = 'block';
+                container.style.display = 'grid';
             }
         });
     });
-}
-
-function initMobileMenu() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
     
-    menuBtn.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
-    
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.style.display = 'none';
-        });
-    });
-}
-
-function initModal() {
-    const modal = document.getElementById('api-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
-    
-    // Open modal when clicking on "Try it" buttons
+    // Initialize API modal
     document.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('open-api-modal')) {
-            const { path, name, desc } = e.target.dataset;
-            openModal(path, name, desc);
+        if (e.target.classList.contains('api-card-button')) {
+            const button = e.target;
+            const path = button.dataset.path;
+            const name = button.dataset.name;
+            const desc = button.dataset.desc;
+            
+            await showApiModal(path, name, desc);
         }
     });
     
-    // Close modal
-    closeModalBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-    
-    // Close when clicking outside modal
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
+    // Initialize copy button
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'copyEndpoint' || e.target.closest('#copyEndpoint')) {
+            const endpointUrl = document.getElementById('endpointUrl').textContent;
+            navigator.clipboard.writeText(endpointUrl);
+            
+            const copyBtn = e.target.closest('button');
+            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            copyBtn.style.color = 'var(--success-color)';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                copyBtn.style.color = '';
+            }, 2000);
         }
     });
 }
 
-async function openModal(path, name, desc) {
-    const modal = document.getElementById('api-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const endpointUrl = document.getElementById('endpoint-url');
-    const paramsContainer = document.getElementById('params-container');
-    const tryItBtn = document.getElementById('try-it-btn');
-    const responseContent = document.getElementById('response-content');
+// Show API modal
+async function showApiModal(path, name, desc) {
+    const modal = document.getElementById('apiModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const endpointUrl = document.getElementById('endpointUrl');
+    const queryParamsContainer = document.getElementById('queryParamsContainer');
+    const tryEndpointBtn = document.getElementById('tryEndpoint');
+    const responseLoader = document.getElementById('responseLoader');
+    const responseContent = document.getElementById('responseContent');
     
-    // Set modal title and endpoint URL
+    // Set modal content
     modalTitle.textContent = name;
-    endpointUrl.textContent = path;
-    
-    // Clear previous content
-    paramsContainer.innerHTML = '';
+    modalDescription.textContent = desc;
+    endpointUrl.textContent = `${window.location.origin}${path}`;
+    queryParamsContainer.innerHTML = '';
     responseContent.textContent = '';
+    responseContent.classList.add('d-none');
     
-    // Check if endpoint has parameters
-    const hasParams = path.includes('?');
+    // Parse query parameters
+    const url = new URL(path, window.location.origin);
+    const params = new URLSearchParams(url.search);
     
-    if (hasParams) {
-        // Extract parameters from path
-        const params = new URLSearchParams(path.split('?')[1]);
+    if (params.toString()) {
+        const paramsForm = document.createElement('div');
+        paramsForm.className = 'query-params';
         
-        // Create input fields for each parameter
-        params.forEach((value, param) => {
+        params.forEach((value, key) => {
             const paramGroup = document.createElement('div');
             paramGroup.className = 'param-group';
+            
             paramGroup.innerHTML = `
-                <label for="${param}">${param}</label>
-                <input type="text" id="${param}" placeholder="Enter ${param}" required>
+                <label class="param-label">${key}</label>
+                <input type="text" class="param-input" data-param="${key}" placeholder="Enter ${key}">
             `;
-            paramsContainer.appendChild(paramGroup);
+            
+            paramsForm.appendChild(paramGroup);
         });
         
-        // Show try it button
-        tryItBtn.style.display = 'block';
-        
-        // Set up try it button click handler
-        tryItBtn.onclick = async () => {
-            // Validate inputs
-            const inputs = paramsContainer.querySelectorAll('input');
-            let isValid = true;
-            
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    input.classList.remove('is-invalid');
-                }
-            });
-            
-            if (!isValid) return;
-            
-            // Build URL with parameters
-            const newParams = new URLSearchParams();
-            inputs.forEach(input => {
-                newParams.append(input.id, input.value.trim());
-            });
-            
-            const apiUrl = `${window.location.origin}${path.split('?')[0]}?${newParams.toString()}`;
-            
-            // Make API request
-            await fetchAPI(apiUrl, responseContent);
-        };
-    } else {
-        // No parameters - hide try it button and make request immediately
-        tryItBtn.style.display = 'none';
-        const apiUrl = `${window.location.origin}${path}`;
-        await fetchAPI(apiUrl, responseContent);
+        queryParamsContainer.appendChild(paramsForm);
     }
     
     // Show modal
     modal.classList.add('active');
-}
-
-async function fetchAPI(url, responseElement) {
-    const loader = document.querySelector('.response-loader');
     
-    try {
-        // Show loader
-        loader.classList.add('active');
-        responseElement.textContent = '';
+    // Close modal when clicking overlay or close button
+    modal.querySelector('.modal-overlay').addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    
+    modal.querySelector('.modal-close').addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    
+    // Try endpoint button
+    tryEndpointBtn.addEventListener('click', async () => {
+        let apiUrl = `${window.location.origin}${path.split('?')[0]}`;
+        const paramInputs = document.querySelectorAll('.param-input');
+        const params = new URLSearchParams();
         
-        const response = await fetch(url);
+        // Validate inputs
+        let isValid = true;
+        paramInputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.classList.add('error');
+                isValid = false;
+            } else {
+                input.classList.remove('error');
+                params.append(input.dataset.param, input.value.trim());
+            }
+        });
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (!isValid) {
+            responseContent.textContent = 'Please fill in all required fields.';
+            responseContent.classList.remove('d-none');
+            return;
         }
         
-        const data = await response.json();
-        responseElement.textContent = JSON.stringify(data, null, 2);
-    } catch (error) {
-        responseElement.textContent = `Error: ${error.message}`;
-    } finally {
-        // Hide loader
-        loader.classList.remove('active');
-    }
-}
-
-// Contributors page functionality
-if (window.location.pathname.includes('contributors.html')) {
-    document.addEventListener('DOMContentLoaded', async () => {
-        const contributorsContainer = document.getElementById('contributors-container');
+        // Add query params if they exist
+        if (params.toString()) {
+            apiUrl += `?${params.toString()}`;
+        }
+        
+        // Show loader
+        responseLoader.classList.add('active');
+        responseContent.classList.add('d-none');
         
         try {
-            const settings = await fetch('/src/settings.json').then(res => res.json());
+            const response = await fetch(apiUrl);
             
-            if (settings.contribute && settings.contribute.length > 0) {
-                contributorsContainer.innerHTML = settings.contribute.map(contributor => `
-                    <div class="contributor-card">
-                        <div class="contributor-header"></div>
-                        <img src="https://avatars.githubusercontent.com/${contributor.github.split('/').pop()}" 
-                             alt="${contributor.name}" 
-                             class="contributor-avatar"
-                             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.name)}&background=random'">
-                        <div class="contributor-body">
-                            <h3 class="contributor-name">${contributor.name}</h3>
-                            <span class="contributor-role">${contributor.role || 'Contributor'}</span>
-                            <div class="contributor-stats">
-                                <div class="stat-item">
-                                    <div class="stat-value">${Math.floor(Math.random() * 50) + 10}</div>
-                                    <div class="stat-label">Commits</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-value">${Math.floor(Math.random() * 20) + 5}</div>
-                                    <div class="stat-label">PRs</div>
-                                </div>
-                            </div>
-                            <p class="contributor-bio">${contributor.bio || 'A passionate contributor to Nazir API.'}</p>
-                            <div class="contributor-social">
-                                <a href="${contributor.github}" class="social-icon github-icon" target="_blank">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="mailto:${contributor.email}" class="social-icon email-icon" target="_blank">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                                <a href="https://wa.me/${contributor.whatsapp}" class="social-icon whatsapp-icon" target="_blank">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                contributorsContainer.innerHTML = `
-                    <div class="no-contributors">
-                        <p>No contributors found.</p>
-                    </div>
-                `;
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+            
+            const contentType = response.headers.get('content-type');
+            
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                responseContent.textContent = JSON.stringify(data, null, 2);
+            } else if (contentType && contentType.includes('image/')) {
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                responseContent.innerHTML = `<img src="${imageUrl}" alt="API Response" style="max-width: 100%;">`;
+            } else {
+                const text = await response.text();
+                responseContent.textContent = text;
+            }
+            
+            endpointUrl.textContent = apiUrl;
         } catch (error) {
-            console.error('Error loading contributors:', error);
-            contributorsContainer.innerHTML = `
-                <div class="error-loading">
-                    <p>Error loading contributors. Please try again later.</p>
-                </div>
-            `;
+            responseContent.textContent = `Error: ${error.message}`;
+        } finally {
+            responseLoader.classList.remove('active');
+            responseContent.classList.remove('d-none');
         }
     });
 }
+
+// Initialize contributors
+async function initializeContributors(settings) {
+    const contributorsContainer = document.getElementById('contributorsContainer');
+    
+    if (!contributorsContainer || !settings.contribute) return;
+    
+    contributorsContainer.innerHTML = '';
+    
+    settings.contribute.forEach(contributor => {
+        const contributorCard = document.createElement('div');
+        contributorCard.className = 'contributor-card';
+        
+        contributorCard.innerHTML = `
+            <div class="contributor-bg"></div>
+            <img src="https://avatars.githubusercontent.com/${contributor.github.split('/').pop()}" 
+                 alt="${contributor.name}" 
+                 class="contributor-avatar"
+                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.name)}&background=random'">
+            <div class="contributor-info">
+                <h3 class="contributor-name">${contributor.name}</h3>
+                <span class="contributor-role">${contributor.role || 'Contributor'}</span>
+                <div class="contributor-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">${Math.floor(Math.random() * 50) + 10}</div>
+                        <div class="stat-label">Commits</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${Math.floor(Math.random() * 20) + 5}</div>
+                        <div class="stat-label">PRs</div>
+                    </div>
+                </div>
+                <p class="contributor-bio">${contributor.bio || 'A passionate developer contributing to the project.'}</p>
+                <div class="contributor-social">
+                    <a href="${contributor.github}" class="social-icon" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:${contributor.email}" class="social-icon" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://wa.me/${contributor.whatsapp}" class="social-icon" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        contributorsContainer.appendChild(contributorCard);
+    });
+}
+
+// Handle scroll events for navbar
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});

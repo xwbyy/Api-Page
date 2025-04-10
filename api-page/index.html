@@ -3,167 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nazir API</title>
-    <meta name="description" content="Modern REST API service with AI, media and more">
+    <meta name="description" content="Modern API services for developers">
+    <title>Nazir API Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <p>Loading API Services...</p>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Initializing API Services</div>
+        </div>
     </div>
 
-    <header class="header">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
-            <nav class="navbar">
-                <a href="/" class="logo">
-                    <span>Nazir</span>API
-                </a>
-                <div class="nav-links">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#documentation" class="nav-link">Documentation</a>
-                    <a href="/contributors.html" class="nav-link">Contributors</a>
-                    <a href="https://github.com/your-repo" target="_blank" class="nav-link github-link">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
+            <a href="/" class="logo">
+                <span class="logo-icon">API</span>
+                <span class="logo-text">Nazir</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#endpoints" class="nav-link">Endpoints</a>
+                <a href="contributors.html" class="nav-link">Contributors</a>
+                <a href="https://wa.me/6285822146627" class="nav-button">Contact</a>
+            </div>
+            <button class="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Powerful API Services for Developers</h1>
+                <p class="hero-subtitle">Access our collection of AI, media, and utility endpoints with simple integration</p>
+                <div class="hero-actions">
+                    <a href="#endpoints" class="btn btn-primary">Explore APIs</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
                 </div>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
+            </div>
+            <div class="hero-image">
+                <img src="https://illustrations.popsy.co/amber/developer-activity.svg" alt="API Illustration" loading="lazy">
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Powerful REST API Services</h1>
-                    <p class="subtitle">Build amazing applications with our collection of AI, media, and utility endpoints</p>
-                    <div class="cta-buttons">
-                        <a href="#documentation" class="btn primary-btn">Get Started</a>
-                        <a href="https://wa.me/6285822146627" class="btn secondary-btn">
-                            <i class="fas fa-phone-alt"></i> Contact Us
-                        </a>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Our API</h2>
+                <p class="section-subtitle">Reliable, fast, and easy-to-integrate solutions</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
                     </div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">Optimized endpoints with low latency responses for your applications.</p>
                 </div>
-                <div class="hero-image">
-                    <img src="/assets/api-hero.svg" alt="API Illustration" loading="lazy">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Secure</h3>
+                    <p class="feature-description">Enterprise-grade security with encrypted data transmission.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3 class="feature-title">Scalable</h3>
+                    <p class="feature-description">Handles high traffic volumes without performance degradation.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="features" class="features">
-            <div class="container">
-                <h2 class="section-title">API Features</h2>
-                <p class="section-subtitle">Explore our powerful API services</p>
-                
+    <!-- API Endpoints Section -->
+    <section id="endpoints" class="endpoints">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">API Endpoints</h2>
+                <p class="section-subtitle">Browse our collection of available endpoints</p>
                 <div class="search-container">
-                    <input type="text" id="api-search" placeholder="Search APIs...">
+                    <input type="text" id="searchInput" placeholder="Search endpoints...">
                     <i class="fas fa-search"></i>
                 </div>
-
-                <div id="api-categories" class="api-categories">
-                    <!-- Categories will be loaded dynamically -->
-                </div>
             </div>
-        </section>
+            <div id="apiContent" class="api-content"></div>
+        </div>
+    </section>
 
-        <section id="documentation" class="documentation">
-            <div class="container">
-                <h2 class="section-title">API Documentation</h2>
-                <p class="section-subtitle">Learn how to integrate with our APIs</p>
-                
-                <div class="docs-container">
-                    <div class="docs-nav">
-                        <div class="docs-nav-content" id="docs-nav">
-                            <!-- Navigation will be loaded dynamically -->
-                        </div>
-                    </div>
-                    <div class="docs-content" id="docs-content">
-                        <!-- Documentation will be loaded dynamically -->
-                    </div>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-text">Integrate our APIs into your application today and enhance your capabilities.</p>
+                <a href="https://wa.me/6285822146627" class="btn btn-primary">Contact Developer</a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
                     <a href="/" class="logo">
-                        <span>Nazir</span>API
+                        <span class="logo-icon">API</span>
+                        <span class="logo-text">Nazir</span>
                     </a>
-                    <p>Modern REST API services for developers</p>
+                    <p class="footer-text">Modern API solutions for developers and businesses.</p>
                 </div>
                 <div class="footer-links">
                     <div class="link-group">
-                        <h3>Resources</h3>
-                        <a href="#features">API Features</a>
-                        <a href="#documentation">Documentation</a>
-                        <a href="/contributors.html">Contributors</a>
+                        <h4 class="link-title">Resources</h4>
+                        <a href="#" class="footer-link">Documentation</a>
+                        <a href="#" class="footer-link">API Reference</a>
+                        <a href="#" class="footer-link">Status</a>
                     </div>
                     <div class="link-group">
-                        <h3>Support</h3>
-                        <a href="https://wa.me/6285822146627">Contact</a>
-                        <a href="#">Status</a>
-                        <a href="#">Help Center</a>
+                        <h4 class="link-title">Company</h4>
+                        <a href="#" class="footer-link">About</a>
+                        <a href="contributors.html" class="footer-link">Contributors</a>
+                        <a href="#" class="footer-link">Blog</a>
                     </div>
                     <div class="link-group">
-                        <h3>Legal</h3>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
+                        <h4 class="link-title">Legal</h4>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Nazir API. All rights reserved.</p>
+                <p class="copyright">© 2023 Nazir API Services. All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- API Modal -->
-    <div id="api-modal" class="modal">
+    <div class="modal" id="apiModal">
+        <div class="modal-overlay"></div>
         <div class="modal-content">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
             <div class="modal-header">
-                <h3 id="modal-title">API Endpoint</h3>
-                <button class="close-modal">&times;</button>
+                <h3 id="modalTitle">API Endpoint</h3>
+                <p id="modalDescription">Endpoint description</p>
             </div>
             <div class="modal-body">
-                <div class="endpoint-info">
-                    <div class="endpoint-method">GET</div>
-                    <code id="endpoint-url">/api/endpoint</code>
+                <div class="endpoint-url">
+                    <code id="endpointUrl">https://api.example.com/endpoint</code>
+                    <button class="copy-btn" id="copyEndpoint">
+                        <i class="far fa-copy"></i>
+                    </button>
                 </div>
-                
-                <div id="params-container" class="params-container">
-                    <!-- Parameters will be loaded dynamically -->
-                </div>
-                
+                <div id="queryParamsContainer"></div>
                 <div class="response-container">
                     <div class="response-header">
                         <h4>Response</h4>
-                        <button id="try-it-btn" class="btn primary-btn">Try it</button>
+                        <button class="btn btn-small" id="tryEndpoint">Try It</button>
                     </div>
-                    <div class="response-loader">
-                        <div class="spinner small"></div>
+                    <div class="response-loader" id="responseLoader">
+                        <div class="loader-spinner small"></div>
+                        <span>Loading response...</span>
                     </div>
-                    <pre id="response-content"></pre>
+                    <pre class="response-content" id="responseContent"></pre>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
