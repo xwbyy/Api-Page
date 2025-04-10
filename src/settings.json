@@ -1,0 +1,415 @@
+{
+  "name": "Powered By Nazir",
+  "version": "1.0.0",
+  "description": "Simple and Easy-to-Use API Documentation",
+  "header": {
+    "status": "Online",
+    "imageSrc": ["https://files.catbox.moe/opz3hv.png"],
+    "imageSize": {
+      "mobile": "80%",
+      "tablet": "40%",
+      "desktop": "40%"
+    }
+  },
+  "apiSettings": {
+    "creator": "Nazir"
+  },
+  "links": [
+    {
+      "name": "Contact Me",
+      "url": "https://wa.me/6281235807940"
+    },
+    {
+      "name": "Contributors",
+      "url": "/contributors"
+    },
+    {
+      "name": "GitHub Repository",
+      "url": "https://github.com/krsna081"
+    }
+  ],
+  "contribute": [
+    {
+      "name": "Reza",
+      "role": "Project Maintainer",
+      "bio": "Full-stack developer passionate about creating useful APIs and tools.",
+      "github": "https://github.com/rezaofc2",
+      "email": "reyzaahari@gmail.com",
+      "whatsapp": "6289606790112"
+    },
+    {
+      "name": "Krizz",
+      "role": "Lead Developer",
+      "bio": "Backend developer with expertise in Node.js and API development.",
+      "github": "https://github.com/krsna081",
+      "email": "krizzioxyz@gmail.com",
+      "whatsapp": "6281235807940"
+    }
+  ],
+  "categories": [
+    {
+      "name": "AI (Artificial Intelligence)",
+      "items": [
+        {
+          "name": "LuminAI",
+          "desc": "Talk with luminai",
+          "path": "/ai/luminai?text="
+        },
+        {
+          "name": "CopilotAi",
+          "desc": "Talk with copilot",
+          "path": "/ai/copilot?text=&sessi=&imageUrl=",
+          "optionalParams": ["imageUrl"]
+        },
+        {
+          "name": "You Search",
+          "desc": "Talk with YouSearch",
+          "path": "/ai/yousearch?text=&prompt="
+        },
+        {
+          "name": "Hydro Mind",
+          "desc": "Talk with hydromind",
+          "path": "/ai/hydromind?text=&model="
+        },
+        {
+          "name": "Gemini Pro",
+          "desc": "Talk with Gemini-pro",
+          "path": "/ai/gemini-pro?text=&imageUrl=&sessi=",
+          "optionalParams": ["imageUrl"]
+        },
+        {
+          "name": "Gemini Canvas",
+          "desc": "Edit image with gemini canvas",
+          "path": "/ai/gemini-canvas?text=&imageUrl="
+        },
+        {
+          "name": "Gemini",
+          "desc": "Talk with gemini",
+          "path": "/ai/gemini?text=&sessi="
+        },
+          {
+          "name": "Hitamin",
+          "desc": "To blacken your waifu",
+          "path": "/ai/hitamin?imageUrl="
+        },
+        {
+          "name": "Botakin",
+          "desc": "To bald your waifu",
+          "path": "/ai/botak?imageUrl="
+        }
+      ]
+    },
+    {
+      "name": "Downloader",
+      "items": [
+        {
+          "name": "Facebook",
+          "desc": "Get more Facebook",
+          "path": "/downloader/facebook?url="
+        },
+        {
+          "name": "Tiktok",
+          "desc": "Get more details TikTok",
+          "path": "/downloader/tiktok?url="
+        },
+        {
+          "name": "Capcut",
+          "desc": "Downloader image And video",
+          "path": "/downloader/capcut?url="
+        },
+        {
+          "name": "Instagram",
+          "desc": "Downloader image And video",
+          "path": "/downloader/instagram?url="
+        },
+        {
+          "name": "MediaFire",
+          "desc": "Downloader from mediafire",
+          "path": "/downloader/mediafire?url="
+        },
+        {
+          "name": "Twitter",
+          "desc": "Downloader Twitter Mendata",
+          "path": "/downloader/twitter?url="
+        },
+        {
+          "name": "Savetube",
+          "desc": "Downloader from savetube (support some urls)",
+          "path": "/downloader/savetube?url=&format="
+        },
+        {
+          "name": "Spotify Downloader",
+          "desc": "Get audio from Spotify",
+          "path": "/downloader/spotify?url="
+        }
+      ]
+    },
+    {
+      "name": "Random",
+      "items": [
+        {
+          "name": "Blue Archive",
+          "desc": "Blue Archive Random Images",
+          "path": "/random/ba"
+        },
+        {
+          "name": "Cecan",
+          "desc": "Cecan Random Images",
+          "path": "/random/cecan"
+        },
+        {
+          "name": "Cogan",
+          "desc": "Cogan Random Images",
+          "path": "/random/cogan"
+        },
+        {
+          "name": "Darkjoke",
+          "desc": "Darkjoke Random Images",
+          "path": "/random/darkjoke"
+        },
+        {
+          "name": "Ppcp",
+          "desc": "Random Pp Couple",
+          "path": "/random/ppcp"
+        },
+        {
+          "name": "Ukhty",
+          "desc": "Ukhty Random Image",
+          "path": "/random/ukhty"
+        },
+        {
+          "name": "Cosplay",
+          "desc": "Cosplay Random Image",
+          "path": "/random/cosplay"
+        },
+        {
+          "name": "Husbu",
+          "desc": "Husbu Random Image",
+          "path": "/random/husbu"
+        },
+        {
+          "name": "Waifu",
+          "desc": "Waifu Random Image",
+          "path": "/random/waifu"
+        },
+        {
+          "name": "Loli",
+          "desc": "Loli Random Image",
+          "path": "/random/loli"
+        },
+        {
+          "name": "Jomok",
+          "desc": "Jomok Random Image",
+          "path": "/random/jomok"
+        },
+{
+          "name": "Cat",
+          "desc": "Meme Cat Random Image",
+          "path": "/random/cat"
+        },
+{
+          "name": "Doge",
+          "desc": "Meme Dog Random Image",
+          "path": "/random/dog"
+        }
+
+
+      ]
+    },
+    {
+      "name": "Search",
+      "items": [
+        {
+          "name": "YouTube",
+          "desc": "Video Search",
+          "path": "/search/youtube?q="
+        },
+        {
+          "name": "Pinterest",
+          "desc": "Get Downloader & Search",
+          "path": "/search/pinterest?q="
+        },
+        {
+          "name": "Spotify Search",
+          "desc": "Search audio Spotify",
+          "path": "/search/spotify?q="
+        },
+        {
+          "name": "TT Search",
+          "desc": "Downloader from mediafire",
+          "path": "/search/ttsearch?q="
+        }
+      ]
+    },
+    {
+      "name": "Tools",
+      "items": [
+        {
+          "name": "Jadianime",
+          "desc": "Entacher Image To Anime",
+          "path": "/tools/toanime?url="
+        },
+        {
+          "name": "Ssweb",
+          "desc": "Website screenshot",
+          "path": "/tools/ssweb?url="
+        },
+        {
+          "name": "Remini",
+          "desc": "Clear up photos",
+          "path": "/tools/remini?url="
+        },
+        {
+          "name": "Remove Bg",
+          "desc": "Removing the background",
+          "path": "/tools/removebg?url="
+        },
+        {
+          "name": "Scan Qr",
+          "desc": "Scan Qr get text",
+          "path": "/tools/qr?url="
+        },
+        {
+          "name": "Lyrics",
+          "desc": "Search Lyrics",
+          "path": "/tools/lyrics?q="
+        },
+        {
+          "name": "Transkripsi YouTube",
+          "desc": "Transcribe YouTube videos",
+          "path": "/tools/transyt?url="
+        },
+        {
+          "name": "Whatmusic",
+          "desc": "Knowing the music",
+          "path": "/tools/whatmusic?url="
+        },
+          {
+          "name": "Nulis",
+          "desc": "Write on paper",
+          "path": "/tools/nulis?content=&footer=&kls="
+        }
+      ]
+    },
+     {
+      "name": "Maker",
+      "items": [
+        {
+          "name": "Gay",
+          "desc": "coloring background to a rainbow",
+          "path": "/maker/gay?nama=&avatar=&num="
+        },
+        {
+          "name": "Xnxx",
+          "desc": "maker logo foto xnxx",
+          "path": "/maker/xnxx?title=&url="
+        },
+        {
+          "name": "Sertifikat-Tolol",
+          "desc": "maker logo sertifikat-tolol",
+          "path": "/maker/sertifikat-tolol?text="
+        },
+        {
+          "name": "Jail",
+          "desc": "make images like in prison",
+          "path": "/maker/jail?image="
+        },
+         {
+          "name": "Wasted",
+          "desc": "maker logo wasted",
+          "path": "/maker/wasted?image="
+        },
+         {
+          "name": "Wanted",
+          "desc": "maker logo wanted",
+          "path": "/maker/wanted?image="
+        },
+        {
+          "name": "Communism",
+          "desc": "maker logo commusism",
+          "path": "/maker/communism?image="
+        },
+        {
+          "name": "clown",
+          "desc": "maker logo clown",
+          "path": "/maker/clown?image="
+        },
+        {
+          "name": "Sadcat",
+          "desc": "maker logo sadcat",
+          "path": "/maker/sadcat?text="
+        },
+        {
+          "name": "Nokia",
+          "desc": "maker logo nokia",
+          "path": "/maker/nokia?image="
+        },
+        {
+          "name": "Quote",
+          "desc": "to write in the picture",
+          "path": "/maker/quote?image=&text=&font=&name="
+        }
+      ]
+    },
+    {
+      "name": "Nsfw",
+      "items": [
+        {
+          "name": "Anime hentai",
+          "desc": "Anime Hentai Random Image",
+          "path": "/nsfw/animehentai"
+        },
+        {
+          "name": "Konachan",
+          "desc": "Konachan Random Image",
+          "path": "/nsfw/konachan"
+        },
+        {
+          "name": "Waifu",
+          "desc": "waifu Random Image",
+          "path": "/nsfw/waifu"
+        },
+        {
+          "name": "Hentai",
+          "desc": "Hentai Random Image",
+          "path": "/nsfw/hentai"
+        },
+        {
+          "name": "Blowjob",
+          "desc": "blowjob Random Gif",
+          "path": "/nsfw/blowjob"
+        },
+        {
+          "name": "Oppai",
+          "desc": "Oppai Random Image",
+          "path": "/nsfw/oppai"
+        },
+        {
+          "name": "Booty",
+          "desc": "Booty Random Image",
+          "path": "/nsfw/booty"
+        },
+        {
+          "name": "Armpits",
+          "desc": "Armpits Random Image",
+          "path": "/nsfw/armpits"
+        },
+        {
+          "name": "Nsfw Loli",
+          "desc": "Nsfw Loli Random Image",
+          "path": "/nsfw/nsfwloli"
+        },
+        {
+          "name": "Ecchi",
+          "desc": "Ecchi Random Image",
+          "path": "/nsfw/ecchi"
+        },
+        {
+          "name": "Pixiv Search",
+          "desc": "Search Pixiv r18 (yes or no)",
+          "path": "/nsfw/pixiv?q=&r18="
+        }
+      ]
+    }
+  ]
+}
