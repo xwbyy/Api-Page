@@ -1,154 +1,169 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/src/9c05810434c6b3bd5c0c4ab308ac8719.jpg" type="image/jpg">
-  <title id="page">Nazir-RestApi🔥</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f0f0f0;
-      font-family: 'Poppins', sans-serif;
-    }
-    .hero {
-      position: relative;
-      width: 100%;
-      min-height: 50vh;
-      background: url('https://i.pinimg.com/originals/ce/f0/e7/cef0e7499ca45b5aac5bc18ab378c2ec.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-    .buttonOwn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: blue;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-    .hero-content h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-    .hero-content p { font-size: 1.2rem; margin-bottom: 1.5rem; }
-    .content-container {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: -40px;
-      margin-bottom: 40px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .banner { max-width: 100%; height: auto; border-radius: 8px; }
-    .scrollable-endpoint { overflow-x: auto; white-space: nowrap; }
-    #loadingScreen {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: rgba(255, 255, 255, 0.8);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-  
-  </style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazir API</title>
+    <meta name="description" content="Modern REST API service with AI, media and more">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
- <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 id="heroTitle">Selamat Datang di Rest-API</h1>
-      <p id="heroSubtitle">Koleksi endpoint AI, Media, dan banyak lagi</p>
-      <a 
-        < div 
-        class="btn btn-light"
-        <button onclick="scrollToSection()">Klik untuk Scroll</button>
-        </a>
-    </div>
-  </section>
 <body>
-    <div id="loadingScreen">
-        <div class="spinner-wrapper">
-            <div class="spinner-border text-dark mb-2" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p>Waitt...</p>
-        </div>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading API Services...</p>
     </div>
-      <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-    <div class="container">
-          <a class="navbar-brand" style="display: flex; align-items: center;">
-        <span id="header" class="me-2">Rest-API</span>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="#apiSection">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Docs</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">GitHub</a></li>
-        </ul>
-      </div>
-       </a>
-    </div>
-  </nav>
-  <div class="container">
-    <button class="buttonOwn" onclick="window.location.href='https://wa.me/6285822146627';"> Contact Nazir
-    </button>
-    <input type="text" id="searchInput" class="form-control mb-5" placeholder="Search API...">
-      <div id="target-section">
-    <div class="tab-content" id="apiContent"></div>
-  </div>
-  </div>
-    <div class="modal fade" id="apiResponseModal" tabindex="-1" aria-labelledby="apiResponseModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" id="modalDialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title" id="apiResponseModalLabel"></h5>
-                        <p class="modal-desc text-muted mb-0" id="apiResponseModalDesc" style="font-size: 14px;"></p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span>Nazir</span>API
+                </a>
+                <div class="nav-links">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#documentation" class="nav-link">Documentation</a>
+                    <a href="/contributors.html" class="nav-link">Contributors</a>
+                    <a href="https://github.com/your-repo" target="_blank" class="nav-link github-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
                 </div>
-                <div class="modal-body">
-                    <pre id="apiEndpoint" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px;"></pre>
-                    <div id="apiQueryInputContainer"></div>
-                    <div id="apiResponseLoading" class="d-none d-flex justify-content-center align-items-center" style="height: 80px;">
-                        <div class="spinner-border custom-spinner" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Powerful REST API Services</h1>
+                    <p class="subtitle">Build amazing applications with our collection of AI, media, and utility endpoints</p>
+                    <div class="cta-buttons">
+                        <a href="#documentation" class="btn primary-btn">Get Started</a>
+                        <a href="https://wa.me/6285822146627" class="btn secondary-btn">
+                            <i class="fas fa-phone-alt"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="/assets/api-hero.svg" alt="API Illustration" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">API Features</h2>
+                <p class="section-subtitle">Explore our powerful API services</p>
+                
+                <div class="search-container">
+                    <input type="text" id="api-search" placeholder="Search APIs...">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div id="api-categories" class="api-categories">
+                    <!-- Categories will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="documentation" class="documentation">
+            <div class="container">
+                <h2 class="section-title">API Documentation</h2>
+                <p class="section-subtitle">Learn how to integrate with our APIs</p>
+                
+                <div class="docs-container">
+                    <div class="docs-nav">
+                        <div class="docs-nav-content" id="docs-nav">
+                            <!-- Navigation will be loaded dynamically -->
                         </div>
                     </div>
-                    <pre id="apiResponseContent" class="d-none mt-2" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px;"></pre>
+                    <div class="docs-content" id="docs-content">
+                        <!-- Documentation will be loaded dynamically -->
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button id="submitQueryBtn" class="btn btn-dark">Submit</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span>Nazir</span>API
+                    </a>
+                    <p>Modern REST API services for developers</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h3>Resources</h3>
+                        <a href="#features">API Features</a>
+                        <a href="#documentation">Documentation</a>
+                        <a href="/contributors.html">Contributors</a>
+                    </div>
+                    <div class="link-group">
+                        <h3>Support</h3>
+                        <a href="https://wa.me/6285822146627">Contact</a>
+                        <a href="#">Status</a>
+                        <a href="#">Help Center</a>
+                    </div>
+                    <div class="link-group">
+                        <h3>Legal</h3>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Nazir API. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- API Modal -->
+    <div id="api-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">API Endpoint</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="endpoint-info">
+                    <div class="endpoint-method">GET</div>
+                    <code id="endpoint-url">/api/endpoint</code>
+                </div>
+                
+                <div id="params-container" class="params-container">
+                    <!-- Parameters will be loaded dynamically -->
+                </div>
+                
+                <div class="response-container">
+                    <div class="response-header">
+                        <h4>Response</h4>
+                        <button id="try-it-btn" class="btn primary-btn">Try it</button>
+                    </div>
+                    <div class="response-loader">
+                        <div class="spinner small"></div>
+                    </div>
+                    <pre id="response-content"></pre>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/script.js"></script>
-       <script>
-    function scrollToSection() {
-      const targetSection = document.getElementById("target-section");
-   targetSection.scrollIntoView({ behavior: "smooth" });
-    }
-  </script>
 </body>
 </html>
