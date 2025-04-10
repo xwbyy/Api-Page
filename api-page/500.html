@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>500 - Server Error</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            * {
+                font-family: 'Poppins', sans-serif;
+            }
+            body, html {
+                height: 100%;
+                overflow: hidden;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #f8f9fa;
+            }
+            .bg-divider {
+                background-color: #4361ee;
+            }
+            .w-divider {
+                width: 2px;
+            }
+            .error-container {
+                text-align: center;
+                padding: 2rem;
+                background-color: white;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+            .error-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            }
+            .error-code {
+                font-size: 5rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #4361ee, #7209b7);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .error-message {
+                color: #333;
+                font-weight: 500;
+                font-size: 1.5rem;
+            }
+            .home-button {
+                margin-top: 2rem;
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                background: linear-gradient(135deg, #4361ee, #7209b7);
+                color: white;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+            }
+            .home-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+            }
+        </style>
+    </head>
+    <body class="font-sans antialiased">
+        <div class="error-container">
+            <div class="flex h-16 items-center space-x-6">
+                <h1 class="error-code">500</h1>
+                <div class="shrink-0 bg-divider border-none h-12 w-divider" role="separator"></div>
+                <h2 class="error-message">Server Error</h2>
+            </div>
+            <p class="mt-4 text-gray-600">Something went wrong on our servers. We're working to fix the issue.</p>
+            <a href="/" class="home-button">Back to Home</a>
+        </div>
+    </body>
+</html>
+
