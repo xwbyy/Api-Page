@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Show loading screen
     const loadingScreen = document.getElementById('loadingScreen');
     document.body.classList.add('no-scroll');
     
     try {
-        // Load settings
         const settings = await fetch('/src/settings.json').then(res => res.json());
-        
-        // Set page title and header
-        document.title = settings.name || 'Nazir API Services';
+        document.title = settings.name || 'Xwby API Services';
         
         // Initialize mobile menu
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
@@ -30,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             await initializeContributors(settings);
         }
         
-        // Hide loading screen after 1.5 seconds
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
             document.body.classList.remove('no-scroll');
@@ -42,21 +37,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Initialize API content
 async function initializeApiContent(settings) {
     const apiContent = document.getElementById('apiContent');
     const searchInput = document.getElementById('searchInput');
     
-    // Clear existing content
     apiContent.innerHTML = '';
     
-    // Group endpoints by category
     const categories = {};
     settings.categories.forEach(category => {
         categories[category.name] = category.items;
     });
     
-    // Create API cards for each category
     for (const [categoryName, endpoints] of Object.entries(categories)) {
         const categoryHeader = document.createElement('h3');
         categoryHeader.className = 'category-title';
@@ -94,7 +85,7 @@ async function initializeApiContent(settings) {
         apiContent.appendChild(categoryContainer);
     }
     
-    // Initialize search functionality
+    // Search functionality
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const apiCards = document.querySelectorAll('.api-card');
@@ -109,23 +100,9 @@ async function initializeApiContent(settings) {
                 card.style.display = 'none';
             }
         });
-        
-        // Hide empty categories
-        document.querySelectorAll('.category-container').forEach(container => {
-            const visibleCards = container.querySelectorAll('.api-card[style="display: block;"]');
-            const categoryTitle = container.previousElementSibling;
-            
-            if (visibleCards.length === 0) {
-                categoryTitle.style.display = 'none';
-                container.style.display = 'none';
-            } else {
-                categoryTitle.style.display = 'block';
-                container.style.display = 'grid';
-            }
-        });
     });
     
-    // Initialize API modal
+    // Handle API card clicks
     document.addEventListener('click', async (e) => {
         if (e.target.classList.contains('api-card-button')) {
             const button = e.target;
@@ -133,86 +110,71 @@ async function initializeApiContent(settings) {
             const name = button.dataset.name;
             const desc = button.dataset.desc;
             
-            await showApiModal(path, name, desc);
-        }
-    });
-    
-    // Initialize copy button
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'copyEndpoint' || e.target.closest('#copyEndpoint')) {
-            const endpointUrl = document.getElementById('endpointUrl').textContent;
-            navigator.clipboard.writeText(endpointUrl);
+            // Load modal content
+            const modalResponse = await fetch('/api-page/endpoints.html');
+            const modalHTML = await modalResponse.text();
             
-            const copyBtn = e.target.closest('button');
-            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-            copyBtn.style.color = 'var(--success-color)';
+            // Create temporary container
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = modalHTML;
             
-            setTimeout(() => {
-                copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-                copyBtn.style.color = '';
-            }, 2000);
+            // Get modal element
+            const modal = tempDiv.querySelector('#apiModal');
+            
+            // Set modal content
+            modal.querySelector('#modalTitle').textContent = name;
+            modal.querySelector('#modalDescription').textContent = desc;
+            modal.querySelector('#endpointUrl').textContent = `${window.location.origin}${path}`;
+            
+            // Add to DOM
+            document.body.appendChild(modal);
+            
+            // Initialize modal functionality
+            initializeModal(modal, path);
         }
     });
 }
 
-// Show API modal
-async function showApiModal(path, name, desc) {
-    const modal = document.getElementById('apiModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDescription = document.getElementById('modalDescription');
-    const endpointUrl = document.getElementById('endpointUrl');
-    const queryParamsContainer = document.getElementById('queryParamsContainer');
-    const tryEndpointBtn = document.getElementById('tryEndpoint');
-    const responseLoader = document.getElementById('responseLoader');
-    const responseContent = document.getElementById('responseContent');
-    
-    // Set modal content
-    modalTitle.textContent = name;
-    modalDescription.textContent = desc;
-    endpointUrl.textContent = `${window.location.origin}${path}`;
-    queryParamsContainer.innerHTML = '';
-    responseContent.textContent = '';
-    responseContent.classList.add('d-none');
-    
-    // Parse query parameters
-    const url = new URL(path, window.location.origin);
-    const params = new URLSearchParams(url.search);
-    
-    if (params.toString()) {
-        const paramsForm = document.createElement('div');
-        paramsForm.className = 'query-params';
-        
-        params.forEach((value, key) => {
-            const paramGroup = document.createElement('div');
-            paramGroup.className = 'param-group';
-            
-            paramGroup.innerHTML = `
-                <label class="param-label">${key}</label>
-                <input type="text" class="param-input" data-param="${key}" placeholder="Enter ${key}">
-            `;
-            
-            paramsForm.appendChild(paramGroup);
-        });
-        
-        queryParamsContainer.appendChild(paramsForm);
-    }
+function initializeModal(modal, path) {
+    const modalOverlay = modal.querySelector('.modal-overlay');
+    const modalClose = modal.querySelector('.modal-close');
+    const tryEndpointBtn = modal.querySelector('#tryEndpoint');
+    const responseLoader = modal.querySelector('#responseLoader');
+    const responseContent = modal.querySelector('#responseContent');
+    const copyBtn = modal.querySelector('#copyEndpoint');
     
     // Show modal
     modal.classList.add('active');
     
-    // Close modal when clicking overlay or close button
-    modal.querySelector('.modal-overlay').addEventListener('click', () => {
+    // Close modal
+    modalOverlay.addEventListener('click', () => {
         modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
     });
     
-    modal.querySelector('.modal-close').addEventListener('click', () => {
+    modalClose.addEventListener('click', () => {
         modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
     });
     
-    // Try endpoint button
+    // Copy endpoint URL
+    copyBtn.addEventListener('click', () => {
+        const endpointUrl = modal.querySelector('#endpointUrl').textContent;
+        navigator.clipboard.writeText(endpointUrl);
+        
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        copyBtn.style.color = 'var(--success-color)';
+        
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+            copyBtn.style.color = '';
+        }, 2000);
+    });
+    
+    // Try endpoint
     tryEndpointBtn.addEventListener('click', async () => {
         let apiUrl = `${window.location.origin}${path.split('?')[0]}`;
-        const paramInputs = document.querySelectorAll('.param-input');
+        const paramInputs = modal.querySelectorAll('.param-input');
         const params = new URLSearchParams();
         
         // Validate inputs
@@ -244,11 +206,6 @@ async function showApiModal(path, name, desc) {
         
         try {
             const response = await fetch(apiUrl);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
             const contentType = response.headers.get('content-type');
             
             if (contentType && contentType.includes('application/json')) {
@@ -257,69 +214,19 @@ async function showApiModal(path, name, desc) {
             } else if (contentType && contentType.includes('image/')) {
                 const blob = await response.blob();
                 const imageUrl = URL.createObjectURL(blob);
-                responseContent.innerHTML = `<img src="${imageUrl}" alt="API Response" style="max-width: 100%;">`;
+                responseContent.innerHTML = `<img src="${imageUrl}" alt="API Response">`;
             } else {
                 const text = await response.text();
                 responseContent.textContent = text;
             }
             
-            endpointUrl.textContent = apiUrl;
+            modal.querySelector('#endpointUrl').textContent = apiUrl;
         } catch (error) {
             responseContent.textContent = `Error: ${error.message}`;
         } finally {
             responseLoader.classList.remove('active');
             responseContent.classList.remove('d-none');
         }
-    });
-}
-
-// Initialize contributors
-async function initializeContributors(settings) {
-    const contributorsContainer = document.getElementById('contributorsContainer');
-    
-    if (!contributorsContainer || !settings.contribute) return;
-    
-    contributorsContainer.innerHTML = '';
-    
-    settings.contribute.forEach(contributor => {
-        const contributorCard = document.createElement('div');
-        contributorCard.className = 'contributor-card';
-        
-        contributorCard.innerHTML = `
-            <div class="contributor-bg"></div>
-            <img src="https://avatars.githubusercontent.com/${contributor.github.split('/').pop()}" 
-                 alt="${contributor.name}" 
-                 class="contributor-avatar"
-                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.name)}&background=random'">
-            <div class="contributor-info">
-                <h3 class="contributor-name">${contributor.name}</h3>
-                <span class="contributor-role">${contributor.role || 'Contributor'}</span>
-                <div class="contributor-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">${Math.floor(Math.random() * 50) + 10}</div>
-                        <div class="stat-label">Commits</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">${Math.floor(Math.random() * 20) + 5}</div>
-                        <div class="stat-label">PRs</div>
-                    </div>
-                </div>
-                <p class="contributor-bio">${contributor.bio || 'A passionate developer contributing to the project.'}</p>
-                <div class="contributor-social">
-                    <a href="${contributor.github}" class="social-icon" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:${contributor.email}" class="social-icon" target="_blank">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="https://wa.me/${contributor.whatsapp}" class="social-icon" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                </div>
-            </div>
-        `;
-        
-        contributorsContainer.appendChild(contributorCard);
     });
 }
 

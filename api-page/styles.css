@@ -1,16 +1,16 @@
 /* Base Styles */
 :root {
-    --primary-color: #4361ee;
-    --primary-dark: #3a0ca3;
-    --primary-light: #4895ef;
-    --secondary-color: #f72585;
-    --dark-color: #212529;
-    --light-color: #f8f9fa;
-    --gray-color: #6c757d;
-    --light-gray: #e9ecef;
-    --success-color: #4cc9f0;
-    --error-color: #f72585;
-    --warning-color: #f8961e;
+    --primary-color: #6C63FF;
+    --primary-dark: #524BDF;
+    --primary-light: #8B85FF;
+    --secondary-color: #FF6584;
+    --dark-color: #2D3748;
+    --light-color: #F7FAFC;
+    --gray-color: #718096;
+    --light-gray: #EDF2F7;
+    --success-color: #48BB78;
+    --error-color: #F56565;
+    --warning-color: #ED8936;
     --border-radius: 8px;
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;

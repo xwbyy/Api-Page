@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Endpoint | Xwby API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="modal" id="apiModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3 id="modalTitle">API Endpoint</h3>
+                <p id="modalDescription">Endpoint description</p>
+            </div>
+            <div class="modal-body">
+                <div class="endpoint-url">
+                    <code id="endpointUrl">https://api.example.com/endpoint</code>
+                    <button class="copy-btn" id="copyEndpoint">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
+                <div id="queryParamsContainer"></div>
+                <div class="response-container">
+                    <div class="response-header">
+                        <h4>Response</h4>
+                        <button class="btn btn-small" id="tryEndpoint">Try It</button>
+                    </div>
+                    <div class="response-loader" id="responseLoader">
+                        <div class="loader-spinner small"></div>
+                        <span>Loading response...</span>
+                    </div>
+                    <pre class="response-content" id="responseContent"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
