@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Endpoints | Xwby API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading API Endpoints</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">XWBY</span>
+                <span class="logo-text">API</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="apilist.html" class="nav-link active">Endpoints</a>
+                <a href="contributors.html" class="nav-link">Team</a>
+                <a href="https://wa.me/6285822146627" class="nav-button">Contact</a>
+            </div>
+            <button class="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- API Endpoints Section -->
+    <section id="endpoints" class="endpoints">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">API Endpoints</h1>
+                <p class="section-subtitle">Browse our collection of available endpoints</p>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search endpoints...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div id="apiContent" class="api-content"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span class="logo-icon">XWBY</span>
+                        <span class="logo-text">API</span>
+                    </a>
+                    <p class="footer-text">Modern API solutions for developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4 class="link-title">Resources</h4>
+                        <a href="apilist.html" class="footer-link">Endpoints</a>
+                        <a href="/list_endpoint" class="footer-link">API List</a>
+                        <a href="/sysinfo" class="footer-link">Status</a>
+                    </div>
+                    <div class="link-group">
+                        <h4 class="link-title">Company</h4>
+                        <a href="#" class="footer-link">About</a>
+                        <a href="contributors.html" class="footer-link">Team</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2023 Xwby API Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="modalContainer"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
