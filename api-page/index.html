@@ -1,72 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/src/icon.png" type="image/png">
-    <title id="page"></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto 20px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    .expired {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div id="loadingScreen">
-        <div class="spinner-wrapper">
-            <div class="spinner-border text-dark mb-2" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p>Waitt...</p>
-        </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" style="display: flex; align-items: center;">
-                <span id="header" class="me-2"></span>
-                <div id="versionHeader" style="background-color: #333; color: white; padding: 4px 12px; font-size: 12px; border-radius: 100px;"></div>
-            </a>
-        </div>
-    </nav>
-    <div class="container">
-        <img id="dynamicImage" class="banner mb-4" style="border-radius: 8px;" src="">
-        <div id="nameContainer" style="display: flex; align-items: center;">
-            <h1 id="name" style="font-size: 32px; margin-right: 10px;"></h1>
-            <div id="version" style="background-color: #333; color: white; padding: 5px 12px; font-size: 12px; border-radius: 100px;"></div>
-        </div>
-        <p id="description" class="lead mb-3"></p>
-        <div id="apiLinks" class="mb-5"></div>
-        <input type="text" id="searchInput" class="form-control mb-5" placeholder="Search API...">
-        <div class="tab-content" id="apiContent"></div>
-    </div>
-    <div class="modal fade" id="apiResponseModal" tabindex="-1" aria-labelledby="apiResponseModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" id="modalDialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title" id="apiResponseModalLabel"></h5>
-                        <p class="modal-desc text-muted mb-0" id="apiResponseModalDesc" style="font-size: 14px;"></p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <pre id="apiEndpoint" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px;"></pre>
-                    <div id="apiQueryInputContainer"></div>
-                    <div id="apiResponseLoading" class="d-none d-flex justify-content-center align-items-center" style="height: 100px;">
-                        <div class="spinner-border custom-spinner" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                    <pre id="apiResponseContent" class="d-none mt-2" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px;"></pre>
-                </div>
-                <div class="modal-footer">
-                    <button id="submitQueryBtn" class="btn btn-dark">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/script.js"></script>
+  <h1>Dashboard Admin</h1>
+
+  <form id="userForm">
+    <input type="text" id="nameInput" placeholder="Masukkan Nama" required />
+    <select id="statusInput" required>
+      <option value="">Pilih Status</option>
+      <option value="1">Status 1 (3 Hari)</option>
+      <option value="2">Status 2 (1 Bulan)</option>
+      <option value="3">Status 3 (2 Bulan)</option>
+      <option value="4">Status 4 (6 Bulan)</option>
+    </select>
+    <button type="submit">Tambah User</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Limit</th>
+        <th>Expired</th>
+      </tr>
+    </thead>
+    <tbody id="user-table-body"></tbody>
+  </table>
+
+  <script>
+    const users = [];
+    const tbody = document.getElementById("user-table-body");
+
+    const getLimitByStatus = (status) => {
+      switch (parseInt(status)) {
+        case 1: return 10;
+        case 2: return 30;
+        case 3: return 100;
+        case 4: return 200;
+        default: return 5;
+      }
+    };
+
+    const getExpiredDateByStatus = (status) => {
+      const now = new Date();
+      switch (parseInt(status)) {
+        case 1:
+          now.setDate(now.getDate() + 3);
+          break;
+        case 2:
+          now.setMonth(now.getMonth() + 1);
+          break;
+        case 3:
+          now.setMonth(now.getMonth() + 2);
+          break;
+        case 4:
+          now.setMonth(now.getMonth() + 6);
+          break;
+        default:
+          now.setDate(now.getDate() + 1);
+      }
+      return now.toISOString();
+    };
+
+    const generateUserId = () => 'user' + Math.floor(Math.random() * 10000);
+
+    const renderTable = () => {
+      tbody.innerHTML = '';
+      users.forEach(user => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${user.user_id}</td>
+          <td>${user.username}</td>
+          <td>${user.email}</td>
+          <td>${user.status}</td>
+          <td>${user.limit}</td>
+          <td class="${new Date(user.expired) < new Date() ? 'expired' : ''}">
+            ${new Date(user.expired).toLocaleString("id-ID")}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    };
+
+    document.getElementById("userForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("nameInput").value.trim();
+      const status = document.getElementById("statusInput").value;
+
+      if (!name || !status) return alert("Isi semua data!");
+
+      const newUser = {
+        user_id: generateUserId(),
+        username: name,
+        email: `${name.toLowerCase()}@example.com`,
+        status: parseInt(status),
+        limit: getLimitByStatus(status),
+        expired: getExpiredDateByStatus(status)
+      };
+
+      users.push(newUser);
+      renderTable();
+
+      // Reset form
+      document.getElementById("userForm").reset();
+    });
+  </script>
+
 </body>
 </html>
