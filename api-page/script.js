@@ -16,15 +16,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
         
-        // Initialize API content
+        // Initialize API content if on API list page
         if (document.getElementById('apiContent')) {
             await initializeApiContent(settings);
         }
         
-        // Initialize contributors
+        // Initialize contributors if on contributors page
         if (document.getElementById('contributorsContainer')) {
             await initializeContributors(settings);
         }
+        
+        // Initialize scroll behavior for navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
         
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
@@ -66,7 +76,7 @@ async function initializeApiContent(settings) {
             apiCard.innerHTML = `
                 <div class="api-card-header">
                     <h3 class="api-card-title">${endpoint.name}</h3>
-                    <span class="api-card-method">GET</span>
+                    <span class="api-card-method">${endpoint.method || 'GET'}</span>
                 </div>
                 <p class="api-card-description">${endpoint.desc}</p>
                 <div class="api-card-footer">
@@ -86,21 +96,23 @@ async function initializeApiContent(settings) {
     }
     
     // Search functionality
-    searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const apiCards = document.querySelectorAll('.api-card');
-        
-        apiCards.forEach(card => {
-            const name = card.dataset.name;
-            const desc = card.dataset.desc;
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const apiCards = document.querySelectorAll('.api-card');
             
-            if (name.includes(searchTerm) || desc.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            apiCards.forEach(card => {
+                const name = card.dataset.name;
+                const desc = card.dataset.desc;
+                
+                if (name.includes(searchTerm) || desc.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
-    });
+    }
     
     // Handle API card clicks
     document.addEventListener('click', async (e) => {
@@ -110,26 +122,44 @@ async function initializeApiContent(settings) {
             const name = button.dataset.name;
             const desc = button.dataset.desc;
             
-            // Load modal content
-            const modalResponse = await fetch('/api-page/endpoints.html');
-            const modalHTML = await modalResponse.text();
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'apiModal';
+            modal.innerHTML = `
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <button class="modal-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="modal-header">
+                        <h3 id="modalTitle">${name}</h3>
+                        <p id="modalDescription">${desc}</p>
+                    </div>
+                    <div class="modal-body">
+                        <div class="endpoint-url">
+                            <code id="endpointUrl">${window.location.origin}${path}</code>
+                            <button class="copy-btn" id="copyEndpoint">
+                                <i class="far fa-copy"></i>
+                            </button>
+                        </div>
+                        <div id="queryParamsContainer"></div>
+                        <div class="response-container">
+                            <div class="response-header">
+                                <h4>Response</h4>
+                                <button class="btn btn-small" id="tryEndpoint">Try It</button>
+                            </div>
+                            <div class="response-loader" id="responseLoader">
+                                <div class="loader-spinner small"></div>
+                                <span>Loading response...</span>
+                            </div>
+                            <pre class="response-content" id="responseContent"></pre>
+                        </div>
+                    </div>
+                </div>
+            `;
             
-            // Create temporary container
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = modalHTML;
-            
-            // Get modal element
-            const modal = tempDiv.querySelector('#apiModal');
-            
-            // Set modal content
-            modal.querySelector('#modalTitle').textContent = name;
-            modal.querySelector('#modalDescription').textContent = desc;
-            modal.querySelector('#endpointUrl').textContent = `${window.location.origin}${path}`;
-            
-            // Add to DOM
-            document.body.appendChild(modal);
-            
-            // Initialize modal functionality
+            document.getElementById('modalContainer').appendChild(modal);
             initializeModal(modal, path);
         }
     });
@@ -230,12 +260,47 @@ function initializeModal(modal, path) {
     });
 }
 
-// Handle scroll events for navbar
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+async function initializeContributors(settings) {
+    const contributorsContainer = document.getElementById('contributorsContainer');
+    
+    if (!contributorsContainer) return;
+    
+    try {
+        const response = await fetch('/src/contributors.json');
+        const contributors = await response.json();
+        
+        contributorsContainer.innerHTML = '';
+        
+        contributors.forEach(contributor => {
+            const contributorCard = document.createElement('div');
+            contributorCard.className = 'contributor-card';
+            
+            contributorCard.innerHTML = `
+                <div class="contributor-bg"></div>
+                <img src="${contributor.avatar}" alt="${contributor.name}" class="contributor-avatar">
+                <div class="contributor-info">
+                    <h3 class="contributor-name">${contributor.name}</h3>
+                    <span class="contributor-role">${contributor.role}</span>
+                    <p class="contributor-bio">${contributor.bio}</p>
+                    <div class="contributor-social">
+                        ${contributor.social.map(social => `
+                            <a href="${social.url}" class="social-icon" target="_blank" rel="noopener noreferrer">
+                                <i class="${social.icon}"></i>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            contributorsContainer.appendChild(contributorCard);
+        });
+    } catch (error) {
+        console.error('Error loading contributors:', error);
+        contributorsContainer.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Failed to load contributors. Please try again later.</p>
+            </div>
+        `;
     }
-});
+}
