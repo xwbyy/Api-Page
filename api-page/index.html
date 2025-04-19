@@ -1,150 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xwby API Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/src/icon.png" type="image/png">
+    <title>Rynn API</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <!-- Loading Screen -->
     <div id="loadingScreen">
-        <div class="loader">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">Initializing Xwby API</div>
+        <div class="spinner-wrapper">
+            <div class="spinner-border text-dark mb-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Loading...</p>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a href="/" class="logo">
-                <span class="logo-icon">XWBY</span>
-                <span class="logo-text">API</span>
+            <a class="navbar-brand" href="/">
+                <span class="logo-text">Rynn API</span>
+                <span class="badge bg-dark">Online</span>
             </a>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#endpoints" class="nav-link">Endpoints</a>
-                <a href="contributors.html" class="nav-link">Team</a>
-                <a href="https://wa.me/6285822146627" class="nav-button">Contact</a>
-            </div>
-            <button class="mobile-menu-button">
-                <i class="fas fa-bars"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api.html">API List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/rynxzyy/Rynn-UI" target="_blank">Source Code</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://wa.me/6285173370004" target="_blank">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Modern API Solutions</h1>
-                <p class="hero-subtitle">Powerful endpoints for developers with simple integration</p>
-                <div class="hero-actions">
-                    <a href="#endpoints" class="btn btn-primary">Explore APIs</a>
-                    <a href="#features" class="btn btn-outline">Learn More</a>
+    <main class="container">
+        <section class="hero-section animate__animated animate__fadeIn">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Rynn API</h1>
+                    <p class="hero-subtitle">Simple and Powerful API Services</p>
+                    <p class="hero-description">Access our collection of modern APIs for AI, search tools, and random content generation with easy-to-use endpoints.</p>
+                    <div class="hero-buttons">
+                        <a href="/api.html" class="btn btn-primary">Explore APIs</a>
+                        <a href="https://github.com/rynxzyy/Rynn-UI" class="btn btn-outline-dark" target="_blank">GitHub</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image-container">
+                        <img src="https://media4.giphy.com/media/l0Iy33dWjmywkCnNS/giphy.gif" alt="API Illustration" class="hero-image">
+                    </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://illustrations.popsy.co/amber/developer-activity.svg" alt="API Illustration" loading="lazy">
-            </div>
-        </div>
-    </header>
+        </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
+        <section class="features-section">
             <div class="section-header">
-                <h2 class="section-title">Why Choose Xwby API</h2>
-                <p class="section-subtitle">Reliable, fast, and easy-to-integrate solutions</p>
+                <h2>Why Choose Rynn API</h2>
+                <p>Key features that make our API services stand out</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
+            <div class="row">
+                <div class="col-md-4 feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     </div>
-                    <h3 class="feature-title">Fast Response</h3>
-                    <p class="feature-description">Optimized endpoints with low latency responses.</p>
+                    <h3>Easy Integration</h3>
+                    <p>Simple RESTful endpoints with clear documentation for quick implementation.</p>
                 </div>
-                <div class="feature-card">
+                <div class="col-md-4 feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     </div>
-                    <h3 class="feature-title">Secure</h3>
-                    <p class="feature-description">Enterprise-grade security with encrypted data.</p>
+                    <h3>Reliable</h3>
+                    <p>High uptime and consistent performance for your applications.</p>
                 </div>
-                <div class="feature-card">
+                <div class="col-md-4 feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-infinity"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
                     </div>
-                    <h3 class="feature-title">Scalable</h3>
-                    <p class="feature-description">Handles high traffic without performance issues.</p>
+                    <h3>Modern AI</h3>
+                    <p>Cutting-edge AI models for natural language processing and more.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- API Endpoints Section -->
-    <section id="endpoints" class="endpoints">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">API Endpoints</h2>
-                <p class="section-subtitle">Browse our collection of available endpoints</p>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Search endpoints...">
-                    <i class="fas fa-search"></i>
-                </div>
-            </div>
-            <div id="apiContent" class="api-content"></div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Get Started?</h2>
-                <p class="cta-text">Integrate our APIs into your application today.</p>
-                <a href="#endpoints" class="btn btn-primary">Explore APIs</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="/" class="logo">
-                        <span class="logo-icon">XWBY</span>
-                        <span class="logo-text">API</span>
-                    </a>
-                    <p class="footer-text">Modern API solutions for developers.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Rynn API</h3>
+                    <p>Simple and Easy-to-Use API Documentation</p>
                 </div>
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4 class="link-title">Resources</h4>
-                        <a href="#endpoints" class="footer-link">Endpoints</a>
-                        <a href="/list_endpoint" class="footer-link">API List</a>
-                        <a href="/sysinfo" class="footer-link">Status</a>
-                    </div>
-                    <div class="link-group">
-                        <h4 class="link-title">Company</h4>
-                        <a href="#" class="footer-link">About</a>
-                        <a href="contributors.html" class="footer-link">Team</a>
-                    </div>
+                <div class="col-md-3">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/api.html">API List</a></li>
+                        <li><a href="https://github.com/rynxzyy/Rynn-UI" target="_blank">Source Code</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="https://wa.me/6285173370004" target="_blank">WhatsApp</a></li>
+                        <li><a href="mailto:contact@rynnapi.com">Email</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="copyright">© 2023 Xwby API Services. All rights reserved.</p>
+                <p>&copy; 2023 Rynn API. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
-    <!-- Modal will be loaded dynamically -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/script.js"></script>
 </body>
-    </html>
+</html>
