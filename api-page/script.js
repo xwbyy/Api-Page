@@ -1,21 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById("loadingScreen");
     const body = document.body;
-    body.classList.add("no-scroll");
+    
+    // Hide loading screen after content is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loadingScreen.style.display = "none";
+            body.classList.remove("no-scroll");
+        }, 500);
+    });
 
-    // Simulate loading
+    // Fallback in case load event doesn't fire
     setTimeout(() => {
         loadingScreen.style.display = "none";
         body.classList.remove("no-scroll");
-    }, 1500);
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 10) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    }, 2000);
 });

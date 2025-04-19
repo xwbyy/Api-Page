@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4361ee">
     <link rel="icon" href="/src/icon.png" type="image/png">
     <title>API List - Rynn API</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
@@ -12,18 +13,18 @@
 <body>
     <div id="loadingScreen">
         <div class="spinner-wrapper">
-            <div class="spinner-border text-dark mb-2" role="status">
+            <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
             <p>Loading API List...</p>
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <span class="logo-text">Rynn API</span>
-                <span class="badge bg-dark">Online</span>
+                <span class="badge bg-primary">Online</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -64,7 +65,7 @@
             </div>
         </div>
 
-        <div class="tab-content" id="apiContent"></div>
+        <div id="apiContent" class="mt-4"></div>
     </div>
 
     <div class="modal fade" id="apiResponseModal" tabindex="-1" aria-labelledby="apiResponseModalLabel" aria-hidden="true">
@@ -107,11 +108,11 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-4 mb-md-0">
                     <h3>Rynn API</h3>
                     <p>Simple and Easy-to-Use API Documentation</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4 mb-md-0">
                     <h4>Links</h4>
                     <ul>
                         <li><a href="/">Home</a></li>
